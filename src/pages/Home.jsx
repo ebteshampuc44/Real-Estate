@@ -1,4 +1,4 @@
-// Home.jsx - আপডেটেড ভার্সন
+// Home.jsx - মোবাইল ফ্রেন্ডলি আপডেটেড ভার্সন
 
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaHome, FaBuilding, FaKey, FaArrowRight, FaStar, FaBed, FaBath, FaRuler } from "react-icons/fa";
-import { Link } from "react-router-dom"; // Link ইম্পোর্ট করুন
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [sliderRef, setSliderRef] = useState(null);
@@ -166,7 +166,17 @@ const Home = () => {
     ),
     customPaging: (i) => (
       <div className="w-3 h-3 bg-white/50 rounded-full cursor-pointer hover:bg-white transition-all duration-300"></div>
-    )
+    ),
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          fade: false,
+          arrows: false,
+          dots: true
+        }
+      }
+    ]
   };
 
   return (
@@ -178,19 +188,23 @@ const Home = () => {
           {sliderImages.map((image, index) => (
             <div key={index} className="relative h-screen">
               <div 
-                className="h-screen bg-cover bg-center"
-                style={{ backgroundImage: `url('${image.url}')` }}
+                className="h-screen w-full bg-cover bg-center bg-no-repeat"
+                style={{ 
+                  backgroundImage: `url('${image.url}')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
               >
                 <div className="absolute inset-0 bg-black/30"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="max-w-7xl mx-auto px-6 text-center w-full relative z-10">
-                    <h1 className="text-7xl font-bold mb-6 text-white drop-shadow-lg animate-fadeIn">
+                  <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center w-full relative z-10">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 text-white drop-shadow-lg animate-fadeIn">
                       Find your 
                       <span className="block text-transparent bg-clip-text bg-gradient-to-r text-white">
                         future home
                       </span>
                     </h1>
-                    <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto drop-shadow animate-slideUp">
+                    <p className="text-lg sm:text-xl text-white/90 mb-6 sm:mb-10 max-w-2xl mx-auto drop-shadow animate-slideUp px-4">
                       Discover your perfect property with our smart search
                     </p>
                   </div>
@@ -202,19 +216,19 @@ const Home = () => {
       </div>
 
       {/* Featured Properties Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Properties</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Featured Properties</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto px-4">
               Explore our handpicked selection of premium properties
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {featuredProperties.map((property) => (
               <div key={property.id} className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                <div className="relative h-48">
+                <div className="relative h-48 sm:h-52">
                   <img src={property.image} alt={property.title} className="w-full h-full object-cover" />
                   <div className="absolute top-3 right-3 bg-white px-2 py-1 rounded-lg flex items-center gap-1">
                     <FaStar className="text-yellow-400" />
@@ -222,10 +236,10 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-1">{property.title}</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">{property.title}</h3>
                   <p className="text-gray-500 text-sm mb-3">{property.location}</p>
-                  <p className="text-2xl font-bold text-blue-600 mb-3">{property.price}</p>
-                  <div className="flex justify-between text-gray-500 text-sm mb-4">
+                  <p className="text-xl sm:text-2xl font-bold text-blue-600 mb-3">{property.price}</p>
+                  <div className="flex justify-between text-gray-500 text-xs sm:text-sm mb-4">
                     <span className="flex items-center gap-1"><FaBed /> {property.beds} Beds</span>
                     <span className="flex items-center gap-1"><FaBath /> {property.baths} Baths</span>
                     <span className="flex items-center gap-1"><FaRuler /> {property.sqft} sqft</span>
@@ -233,7 +247,7 @@ const Home = () => {
                   <Link 
                     to={`/booking/${property.id}`}
                     state={{ property }}
-                    className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                    className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
                   >
                     View Details <FaArrowRight />
                   </Link>
@@ -242,10 +256,10 @@ const Home = () => {
             ))}
           </div>
           
-          <div className="text-center mt-10">
+          <div className="text-center mt-8 sm:mt-10">
             <Link 
               to="/properties"
-              className="inline-block bg-transparent border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors"
+              className="inline-block bg-transparent border-2 border-blue-600 text-blue-600 px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors text-sm sm:text-base"
             >
               Browse All Properties
             </Link>
@@ -254,23 +268,23 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto px-4">
               We provide comprehensive real estate solutions for all your needs
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {services.map((service, index) => (
-              <div key={index} className="text-center p-8 rounded-xl hover:shadow-lg transition-shadow">
-                <div className="inline-block p-4 bg-blue-50 rounded-full mb-4">
+              <div key={index} className="text-center p-6 sm:p-8 rounded-xl hover:shadow-lg transition-shadow">
+                <div className="inline-block p-3 sm:p-4 bg-blue-50 rounded-full mb-4">
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
-                <p className="text-gray-600">{service.description}</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
+                <p className="text-sm sm:text-base text-gray-600">{service.description}</p>
               </div>
             ))}
           </div>
@@ -278,25 +292,25 @@ const Home = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto px-4">
               Three simple steps to your dream property
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
             {howItWorks.map((item, index) => (
               <div key={index} className="relative">
                 <div className="text-center">
-                  <div className="text-6xl font-bold text-blue-200 mb-4">{item.step}</div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
+                  <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-blue-200 mb-4">{item.step}</div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{item.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-600 px-4">{item.description}</p>
                 </div>
                 {index < 2 && (
-                  <div className="hidden md:block absolute top-1/3 -right-4 text-2xl text-gray-300">
+                  <div className="hidden md:block absolute top-1/3 -right-6 text-2xl text-gray-300">
                     <FaArrowRight />
                   </div>
                 )}
@@ -307,27 +321,27 @@ const Home = () => {
       </section>
 
       {/* Popular Locations Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Popular Locations</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Popular Locations</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto px-4">
               Discover properties in most sought-after locations
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {locations.map((location, index) => (
               <Link 
                 to={`/properties?location=${location.name.toLowerCase()}`} 
                 key={index} 
-                className="relative h-64 rounded-xl overflow-hidden group cursor-pointer"
+                className="relative h-48 sm:h-56 lg:h-64 rounded-xl overflow-hidden group cursor-pointer"
               >
                 <img src={location.image} alt={location.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-xl font-semibold">{location.name}</h3>
-                  <p className="text-sm opacity-90">{location.count}</p>
+                  <h3 className="text-lg sm:text-xl font-semibold">{location.name}</h3>
+                  <p className="text-xs sm:text-sm opacity-90">{location.count}</p>
                 </div>
               </Link>
             ))}
@@ -336,31 +350,31 @@ const Home = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto px-4">
               Real stories from happy clients
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-lg">
-                <div className="flex items-center gap-4 mb-4">
-                  <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full object-cover" />
+              <div key={index} className="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
+                <div className="flex items-center gap-3 sm:gap-4 mb-4">
+                  <img src={testimonial.image} alt={testimonial.name} className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
+                    <h4 className="font-semibold text-gray-900 text-sm sm:text-base">{testimonial.name}</h4>
+                    <p className="text-xs sm:text-sm text-gray-500">{testimonial.role}</p>
                   </div>
                 </div>
                 <div className="flex gap-1 mb-3">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <FaStar key={i} className="text-yellow-400" />
+                    <FaStar key={i} className="text-yellow-400 text-sm sm:text-base" />
                   ))}
                 </div>
-                <p className="text-gray-600 italic">"{testimonial.comment}"</p>
+                <p className="text-sm sm:text-base text-gray-600 italic">"{testimonial.comment}"</p>
               </div>
             ))}
           </div>
@@ -369,19 +383,20 @@ const Home = () => {
 
       {/* Call To Action Section */}
       <section 
-        className="py-20 bg-cover bg-center bg-fixed relative"
+        className="py-16 sm:py-20 bg-cover bg-center bg-fixed relative"
         style={{ 
           backgroundImage: `url('https://i.ibb.co.com/fYLqx9Xk/wallpaperflare-com-wallpaper.jpg')`
         }}
       >
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">Ready to find your dream home?</h2>
-          <p className="text-xl text-white mb-8 drop-shadow">
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg">Ready to find your dream home?</h2>
+          <p className="text-lg sm:text-xl text-white mb-6 sm:mb-8 drop-shadow px-4">
             Start your property search today with thousands of listings
           </p>
           <Link 
             to="/properties"
-            className="inline-block bg-white text-blue-600 px-10 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors shadow-lg"
+            className="inline-block bg-white text-blue-600 px-8 sm:px-10 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-blue-50 transition-colors shadow-lg"
           >
             Explore Properties
           </Link>
@@ -412,6 +427,17 @@ const Home = () => {
         
         .animate-slideUp {
           animation: slideUp 0.8s ease-out forwards;
+        }
+
+        /* মোবাইল ডিভাইসের জন্য স্পেসিফিক স্টাইল */
+        @media (max-width: 640px) {
+          .slick-slide > div {
+            height: 100vh;
+          }
+          
+          .slick-list, .slick-track {
+            height: 100%;
+          }
         }
       `}</style>
     </div>
