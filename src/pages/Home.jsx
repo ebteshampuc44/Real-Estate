@@ -1,9 +1,12 @@
+// Home.jsx - আপডেটেড ভার্সন
+
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaHome, FaBuilding, FaKey, FaArrowRight, FaStar, FaBed, FaBath, FaRuler } from "react-icons/fa";
+import { Link } from "react-router-dom"; // Link ইম্পোর্ট করুন
 
 const Home = () => {
   const [sliderRef, setSliderRef] = useState(null);
@@ -227,18 +230,25 @@ const Home = () => {
                     <span className="flex items-center gap-1"><FaBath /> {property.baths} Baths</span>
                     <span className="flex items-center gap-1"><FaRuler /> {property.sqft} sqft</span>
                   </div>
-                  <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+                  <Link 
+                    to={`/booking/${property.id}`}
+                    state={{ property }}
+                    className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                  >
                     View Details <FaArrowRight />
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
           </div>
           
           <div className="text-center mt-10">
-            <button className="bg-transparent border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors">
+            <Link 
+              to="/properties"
+              className="inline-block bg-transparent border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors"
+            >
               Browse All Properties
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -308,14 +318,18 @@ const Home = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {locations.map((location, index) => (
-              <div key={index} className="relative h-64 rounded-xl overflow-hidden group cursor-pointer">
+              <Link 
+                to={`/properties?location=${location.name.toLowerCase()}`} 
+                key={index} 
+                className="relative h-64 rounded-xl overflow-hidden group cursor-pointer"
+              >
                 <img src={location.image} alt={location.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 text-white">
                   <h3 className="text-xl font-semibold">{location.name}</h3>
                   <p className="text-sm opacity-90">{location.count}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -353,23 +367,26 @@ const Home = () => {
         </div>
       </section>
 
-    {/* Call To Action Section - ওভারলে ছাড়া */}
-<section 
-  className="py-20 bg-cover bg-center bg-fixed relative"
-  style={{ 
-    backgroundImage: `url('https://i.ibb.co.com/fYLqx9Xk/wallpaperflare-com-wallpaper.jpg')`
-  }}
->
-  <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-    <h2 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">Ready to find your dream home?</h2>
-    <p className="text-xl text-white mb-8 drop-shadow">
-      Start your property search today with thousands of listings
-    </p>
-    <button className="bg-white text-blue-600 px-10 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors shadow-lg">
-      Explore Properties
-    </button>
-  </div>
-</section>
+      {/* Call To Action Section */}
+      <section 
+        className="py-20 bg-cover bg-center bg-fixed relative"
+        style={{ 
+          backgroundImage: `url('https://i.ibb.co.com/fYLqx9Xk/wallpaperflare-com-wallpaper.jpg')`
+        }}
+      >
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">Ready to find your dream home?</h2>
+          <p className="text-xl text-white mb-8 drop-shadow">
+            Start your property search today with thousands of listings
+          </p>
+          <Link 
+            to="/properties"
+            className="inline-block bg-white text-blue-600 px-10 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors shadow-lg"
+          >
+            Explore Properties
+          </Link>
+        </div>
+      </section>
 
       {/* অ্যানিমেশন স্টাইল */}
       <style jsx>{`

@@ -7,6 +7,7 @@ import Blog from './pages/Blog';
 import ContactUs from './pages/ContactUs';
 import Booking from './pages/Booking';
 import Article from './pages/Article';
+import Error from './pages/Error';  // Changed to look in pages folder
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
         <Route path="blog" element={<Blog />} />
         <Route path="article/:id" element={<Article />} />
         <Route path="contact-us" element={<ContactUs />} />
+        <Route path="error" element={<Error/>}/>
+        {/* Add catch-all route for 404 pages */}
+        <Route path="*" element={<Error/>} />
       </Route>
     </Routes>
   );
