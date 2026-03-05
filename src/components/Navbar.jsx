@@ -45,7 +45,7 @@ const Navbar = () => {
     };
   }, []);
 
-  // মেনু আইটেমগুলোর Array with paths (THEMES রিমুভ করা হয়েছে)
+  // মেনু আইটেমগুলোর Array with paths
   const menuItems = [
     { name: "HOME", path: "/" },
     { name: "PROPERTIES", path: "/properties" },
@@ -85,9 +85,9 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Desktop Profile Icon */}
+        {/* Desktop Profile Icon - Updated to link to login */}
         <Link 
-          to="/profile" 
+          to="/login" 
           className="hidden md:block border border-white rounded-full p-3 cursor-pointer hover:bg-white hover:text-black transition-all duration-300"
         >
           <FaUser />
@@ -95,9 +95,9 @@ const Navbar = () => {
 
         {/* Hamburger Icon - Mobile */}
         <div className="md:hidden flex items-center gap-4">
-          {/* Mobile Profile Icon */}
+          {/* Mobile Profile Icon - Updated to link to login */}
           <Link 
-            to="/profile" 
+            to="/login" 
             className="border border-white rounded-full p-2 cursor-pointer hover:bg-white hover:text-black transition-all duration-300"
           >
             <FaUser className="text-sm" />
